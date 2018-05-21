@@ -37,7 +37,7 @@ describe('Routes', () => {
         response.should.be.json
         response.should.have.status(201)
         response.body.should.be.an('object')
-        response.body.should.have.property('result', 'Risk added successfully')
+        response.body.should.have.property('result', 'Risk added successfully.')
         done()
       })
   })

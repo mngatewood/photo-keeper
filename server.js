@@ -33,7 +33,7 @@ app.post('/api/v1/photos/', (request, response) => {
           response.status(500).json(error)
       })
   } else {
-    return response.status(422).json('Must provide photo title and url');
+    return response.status(422).json({ error: 'Must provide photo title and url' });
   }
 });
 
