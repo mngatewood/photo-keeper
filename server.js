@@ -42,10 +42,9 @@ app.delete('/api/v1/photos/:id', (request, response) => {
 
   database('photos').where('id', id ).del()
     .then(result => {
-      console.log(result)
       if (result) {
         return response
-          .status(200)
+          .status(204)
           .json({ result: `Photo ${id} deleted successfully.` })
       } else {
         return response
