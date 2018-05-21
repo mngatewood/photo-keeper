@@ -7,9 +7,9 @@ const insertPhotos = (knex, photo) => knex('photos').insert({
 }, 'id');
 
 exports.seed = (knex, Promise) => database.migrate.rollback()
-  .then( () => database.migrate.latest() )
-  .then( () => knex('photos').del() )
-  .then( () => { 
+  .then(() => database.migrate.latest())
+  .then(() => knex('photos').del())
+  .then(() => {
     const photoPromises = [];
 
     photosData.forEach(photo => {
