@@ -18,13 +18,15 @@ const fetchPhotos = async () => {
   }
 };
 
-const fetchPost = async (title, photoUrl) => {
+const fetchPost = async (title, image) => {
   const url = '/api/v1/photos';
+  
+  console.log(title, image)
 
   try {
     const response = await fetch(url, {
       method: 'POST',
-      body: JSON.stringify({ title, url }),
+      body: JSON.stringify({ title, url: image }),
       headers: {
         'Content-Type': 'application/json'
       }
@@ -42,7 +44,6 @@ const fetchPost = async (title, photoUrl) => {
 }
 
 fetchDelete = async (id) => {
-  console.log(id)
   const url = `/api/v1/photos/${id}`;
 
   try {
@@ -66,16 +67,15 @@ fetchDelete = async (id) => {
 
 const handleSubmit = () => {
   const title = $('#title').val();
-  const photoUrl = $('#url').val();
+  const image = $('#url').val();
 
   event.preventDefault();
   clearInputs();
-  fetchPost(title, url);
+  fetchPost(title, image);
   renderPhotos();
 }
 
 const handleDelete = async (id) => {
-  console.log('handle delete');
   await fetchDelete(id);
   renderPhotos();
 }  
@@ -92,14 +92,13 @@ const clearInputs = () => {
 
 const renderPhotos = async () => {
   photos = await fetchPhotos();
-  console.log(photos)
   $('main').html('');
   $.each(photos, (index, photo) => {
     const newPhoto = $(`
       <article id="photo-${photo.id}">
         <h2 >${photo.title}</h2>
         <img src="${photo.url}" />
-        <button class="delete" id="${photo.id}" onClick="handleDelete(${photo.id})">Delete</button>
+        <input type="image" src="../css/garbage.svg" class="delete" id="${photo.id}" onClick="handleDelete(${photo.id})" />
       </article>
     `);
     $('main').append(newPhoto);
