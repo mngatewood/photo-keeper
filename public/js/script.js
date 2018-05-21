@@ -57,8 +57,14 @@ const handleSubmit = () => {
   const photoUrl = $('#url').val();
 
   event.preventDefault();
+  clearInputs();
   fetchPost(title, url);
   renderPhotos();
+}
+
+const clearInputs = () => {
+  $('#title').val('');
+  $('#url').val('')
 }
 
 $('#submit').click(handleSubmit);
@@ -83,8 +89,8 @@ fetchDelete = async (id) => {
   }
 }
 
-const handleDelete = (id) => {
+const handleDelete = async (id) => {
   console.log('handle delete');
-  fetchDelete(id);
+  await fetchDelete(id);
   renderPhotos();
 }
