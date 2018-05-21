@@ -11,7 +11,7 @@ const renderPhotos = async () => {
       <article id="photo-${photo.id}">
         <h2 >${photo.title}</h2>
         <img src="${photo.url}" />
-        <button class="delete" id="${photo.id}">Delete</button>
+        <button class="delete" id="${photo.id}" onClick="handleDelete(${photo.id})">Delete</button>
       </article>
     `);
     $('main').append(newPhoto);
@@ -52,7 +52,7 @@ fetchPost = async (title, photoUrl) => {
   }
 }
 
-const handleSubmit = (event) => {
+const handleSubmit = () => {
   const title = $('#title').val();
   const photoUrl = $('#url').val();
 
@@ -70,9 +70,6 @@ fetchDelete = async (id) => {
   try {
     const response = await fetch(url, {
       method: 'DELETE',
-      headers: {
-        'Content-Type': 'application/json'
-      }
     })
       .then(response => {
         if (response.status === 200) {
@@ -86,13 +83,8 @@ fetchDelete = async (id) => {
   }
 }
 
-const handleDelete = (event) => {
-  const id = event.target.id;
-  
-  console.log('handle delete')
-  event.preventDefault();
+const handleDelete = (id) => {
+  console.log('handle delete');
   fetchDelete(id);
   renderPhotos();
 }
-
-$('button.delete').click(handleDelete(event));
