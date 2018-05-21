@@ -44,7 +44,7 @@ app.delete('/api/v1/photos/:id', (request, response) => {
     .then(result => {
       if (result) {
         return response
-          .status(204)
+          .status(200)
           .json({ result: `Photo ${id} deleted successfully.` })
       } else {
         return response
